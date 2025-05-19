@@ -38,22 +38,24 @@ export default function Alert({ type = 'error', message }) {
   if (!visible) return null;
 
   return (
-    <div
-      className={`${style.bg} ${style.border} ${style.text} border px-4 py-3 rounded-xl flex items-center gap-3 shadow-sm transition-colors duration-300`}
-      role="alert"
-    >
-      <div>{style.icon}</div>
-      <div className="flex-1 text-sm leading-relaxed">
-        <strong className="block font-semibold capitalize">{type}</strong>
-        <span className="block">{message}</span>
-      </div>
-      <button
-        onClick={() => setVisible(false)}
-        className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
-        aria-label="Close"
+    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
+      <div
+        className={`${style.bg} ${style.border} ${style.text} border px-4 py-3 rounded-xl flex items-center gap-3 shadow-sm transition-colors duration-300`}
+        role="alert"
       >
-        <X className="w-6 h-6" />
-      </button>
+        <div>{style.icon}</div>
+        <div className="flex-1 text-sm leading-relaxed">
+          <strong className="block font-semibold capitalize">{type}</strong>
+          <span className="block">{message}</span>
+        </div>
+        <button
+          onClick={() => setVisible(false)}
+          className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
+          aria-label="Close"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
     </div>
   );
 }

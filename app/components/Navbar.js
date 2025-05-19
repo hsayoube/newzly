@@ -1,16 +1,14 @@
 "use client"
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { APP_NAME } from '../config';
-import SubscribeModal from './SubscribeModal';
 import ThemeSwitcher from './ThemeSwitcher';
 import SidebarToggle from './SidebarToggle';
 import clsx from 'clsx';
+import { CATEGORIES } from '../config';
 
 export default function Navbar() {
-  const [showModal, setShowModal] = useState(false);
   const pathname = usePathname()
 
   return (
@@ -29,34 +27,27 @@ export default function Navbar() {
 
           {/* Nav Links */}
           <div className="hidden md:flex space-x-6 text-gray-500 dark:text-gray-300 font-medium">
-            <Link href="/" className={clsx(
-              "hover:text-blue-600 dark:hover:text-blue-400 transition duration-100",
-              pathname === "/" && "text-blue-600 dark:text-blue-400"
-            )}>Home</Link>
-            <Link href="/news" className={clsx(
-              "hover:text-blue-600 dark:hover:text-blue-400 transition duration-100",
-              pathname === "/news" && "text-blue-600 dark:text-blue-400"
-            )}>News</Link>
-            <Link href="/about" className={clsx(
-              "hover:text-blue-600 dark:hover:text-blue-400 transition duration-100",
-              pathname === "/about" && "text-blue-600 dark:text-blue-400"
-            )}>About</Link>
+            {
+              CATEGORIES.map((category) => (
+                <Link key={category} href={`/${category}`} className={clsx(
+                  "hover:text-blue-600 dark:hover:text-blue-400 capitalize transition duration-100",
+                  pathname === `/${category}` && "text-blue-600 dark:text-blue-400"
+                )}>{category}</Link>
+              ))
+            }
           </div>
 
           <div className="flex justify-between items-center">
             <ThemeSwitcher />
             <div className="hidden md:block">
-              <button className="bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-800 hover:to-indigo-400 transition duration-700 py-2 px-5 rounded-md hover:cursor-pointer">
-                <span className="text-white px-4 py-2 rounded-md" onClick={() => setShowModal(true)}>
-                  Subscribe
-                </span>
-              </button>
+              <Link href="/sub" className="bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-800 hover:to-indigo-400 transition duration-700 py-2 px-5 rounded-md text-white">
+                Subscribe
+              </Link>
             </div>
           </div>
 
         </div>
       </div>
-      <SubscribeModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </nav>
   );
 }
