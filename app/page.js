@@ -15,7 +15,7 @@ const fetcher = (url) =>
 
 export default function Home() {
   const { data, error, isLoading } = useSWR('/api/get-news', fetcher);
-  const news = data?.articles?.slice(0, 4) || [];
+  const news = data?.articles?.slice(0, 9) || [];
 
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 space-y-20">
